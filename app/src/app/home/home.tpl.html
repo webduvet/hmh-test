@@ -1,11 +1,70 @@
-<h1>Home of Hmh search</h1>
+<h1>Mockup Search Page</h1>
 
-<p>Code it up</p>
+<p>This page display search results, use page next, previous to navigate and sort dropdown to try different order</p>
 
 <p>
-    <span ng-bind="model.someVar" />
-    <ul>
-        <li ng-repeat="item in model.someList">{{item}}</li>
-    </ul>
-    <button class="btn btn-primary" ng-click="model.someFunctionUsedByTheHomePage()">Click Me</button>
+    <button class="btn btn-primary" ng-click="model.loadResults()">Search</button>
 </p>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-danger">Order By</button>
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+	  <li ng:repeat="item in model.orderStyles"><a href ng:click="model.reOrder(item)">{{item}}</a></li>
+  </ul>
+</div>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+  <div class="panel panel-default" ng:repeat="item in model.dataList">
+	  <div class="panel-heading" role="tab" id="item{{$index}}">
+      <h5 class="panel-title">
+		  <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$index}}" aria-expanded="false" aria-controls="collapse{{$index}}">
+			  <div class="row">
+				  <div class="col-sm-3">{{item.content.resource.resource_type}}</div>
+				  <div class="col-sm-3">{{item.content.resource.display_title}}</div>
+				  <div class="col-sm-3">{{item.content.resource.media_type}}</div>
+				  <div class="col-sm-3">{{item.content.resource.language}}</div>
+			  </div>
+        </a>
+      </h5>
+    </div>
+	<div id="collapse{{$index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+		  <p>
+		  <label>meaningful description</label>
+		  {{item.content.resource.meaningful_description}}
+		  </p>
+		  <p>
+		  <label>additional text</label>
+		  {{item.content.resource.additional_text}}
+		  </p>
+		  <p>
+		  <label>categorization</label>
+		  {{item.content.resource.categorization}}
+		  </p>
+		  <p ng:show="!!item.content.resource.standards">
+		  <label>standards</label>
+		  <ul>
+			  <li ng:repeat="item in item.content.resource.standards.standard">
+			  {{item.id || item}}
+			  </li>
+		  </ul>
+		  </p>
+		  <div class='row center-block' style="padding: 5px;" ng-show="{{item.content.resource.viewable}}">
+			  <button class='btn btn-default center-block' ng:click="model.viewDetail(item)">detail</button>
+		  </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<nav>
+  <ul class="pager">
+    <li><a href="#" ng:click="model.previous()">Previous</a></li>
+    <li><a href="#" ng:click="model.next()">Next</a></li>
+  </ul>
+</nav>

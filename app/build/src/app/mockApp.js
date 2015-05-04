@@ -1,5 +1,5 @@
 (function(module) {
-    module.run(['$httpBackend', '$filter', '$location', function($httpBackend, $filter, $location) {
+    module.run(function($httpBackend, $filter, $location) {
 
         // Intercept only the calls we want to mock
 
@@ -71,7 +71,7 @@
                 }
             return null;
         }
-    }]);
+    });
 
 // Your normal app is listed as a dependency, so all your functionality is there.  We've basically just extended it
 //  with this http interception code.

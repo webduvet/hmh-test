@@ -13,13 +13,21 @@
 
     // As you add controllers to a module and they grow in size, feel free to place them in their own files.
     //  Let each module grow organically, adding appropriate organization and sub-folders as needed.
-    module.controller('HomeController', function () {
+    module.controller('HomeController', function ($scope, $q, Db, mModal) {
         // The top section of a controller should be lean and make it easy to see the "signature" of the controller
         //  at a glance.  All function definitions should be contained lower down.
         var model = this;
         model.someVar = 'blue';
-        model.someList = ['one', 'two', 'three'];
-        model.someFunctionUsedByTheHomePage = someFunctionUsedByTheHomePage;
+        model.dataList = null;
+		model.currentPage = 0;
+		model.currentOrderBy = 'resource_type';
+		model.orderStyles = ['resource_type', 'media_type', 'display_title', 'language'];
+        model.loadResults = loadResults;
+		model.next = next;
+		model.previous = previous;
+		model.orderBy = orderBy;
+		model.reOrder = reOrder;
+		model.viewDetail = viewDetail;
 
         init();
 
@@ -28,9 +36,50 @@
             //  writing any code outside of this function that executes immediately.
         }
 
-        function someFunctionUsedByTheHomePage() {
-            alert('Congratulations');
+        function loadResults() {
+			var result = Db.search(model.currentOrderBy, model.currentPage);
+			result.then(function(data){
+				model.dataList = data.data;
+			});
         }
+
+		function next(){
+			model.currentPage++;
+			loadResults();
+		}
+
+		function previous(){
+			model.currentPage--;
+			loadResults();
+		}
+
+		function orderBy(index){
+			model.currentOrderBy = model.orderStyles[index];
+			loadResulrs();
+		}
+
+		function reOrder(query){
+			model.currentOrderBy = query;
+			loadResults();
+		}
+
+		function viewDetail(item){
+			console.log(mModal);
+			var result = mModal.open({
+				title: "Record Details",
+				content: item.content.resource
+			});
+			result.then(function(result){
+				console.log(result);
+				if(result){
+				}
+			}, function(reason){
+				console.log("reason:", reason);
+			});
+
+		}
+
+		
 
     });
 

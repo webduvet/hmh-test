@@ -1,13 +1,14 @@
-angular.module("common.data",[])
+(function(app) {
 
+app
 /**
  * simulates the extrnal data resource
  */
-.provider('data', function($injector){
+.provider('Data', function($injector){
 	var inj = angular.injector(['ng']);
 	var $http = inj.get('$http');
 
-	var dataP = $http.get('http://localhost:3001/content.json');
+	var dataP = $http.get('http://localhost:3001/content/resource_type/0');
 	var _content;
 
 	dataP
@@ -25,30 +26,32 @@ angular.module("common.data",[])
 
 })
 
-.service('searchDb', function(){
+.service('Db', function($http){
 
+	return {
 
-  return {
-    /**
-     * reaturns the searched content - fake search
-	 *
-	 * @param {string} query, does nothing - just a fake
-	 * @param {int} mage number, page contains 5 records 
-     *
-     * @returns {Promise} array of records from db
-     */
-    searchContent:
-      function(query, page){
-        // TODO do some housekeeping for parameters
-				// defaults
-		var
-            apipoint = 'http://localhost:3001/content?page=',
-            url = apipoint + page,
-            result;
+		/**
+		 * reaturns the searched content - fake search
+		 *
+		 * @param {string} query, does nothing - just a fake
+		 * @param {int} mage number, page contains 5 records 
+		 *
+		 * @returns {Promise} array of records from db
+		 */
+		search:
+			function(query, page){
+				// TODO do some housekeeping for parameters
+						// defaults
+				var
+					apipoint = 'http://localhost:3001/content/',
+					url = apipoint + query + '/' + page,
+					result;
 
-        return $http.get(url);
-      }
-  };
+				return $http.get(url);
+			}
+	};
 })
 
 ;
+
+}(angular.module("hmhSearch.Data", [])));

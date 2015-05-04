@@ -21,5 +21,6 @@
 
 // The name of the module, followed by its dependencies (at the bottom to facilitate enclosure)
 }(angular.module("hmhSearch.home", [
-    'ui.router'
+    'ui.router',
+	'hmhSearch.Data'
 ])));
