@@ -28,8 +28,20 @@ this will build the app for testing environment (no minify or concat on files)
 This is a simple static server to test the app.
 
 	npm install
-	node server.js
+	npm start // just runs node server.js
 
 it's better if you run it in separate shell, it's very simple node.js http server.
 the default direcotry is hardwired to `../app/build/` so if have different folder structure
 it needs to be changed accordingly.
+
+
+## solution
+
+in requirements there is to have a pgination by 5. I can load the whole content of content.json file in memory and cre`te simple service to feed the view.
+However this is not good solution sice in real life the content.json can contain tens of thousands records. Pagination need to be implemented on server side.
+
+For this reason I open the content.json on server and break it into 5 record chunks. This is just to emulate the real life scenario for front end app. It's no way that
+I would do it this way on backend :)
+
+#### server
+
