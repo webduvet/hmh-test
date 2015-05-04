@@ -1,0 +1,18 @@
+{
+  "name": "static_server",
+  "version": "1.0.0",
+  "description": "simple_to_test_ngapp",
+  "main": "server.js",
+  "dependencies": {
+    "mime": "^1.3.4"
+  },
+  "devDependencies": {
+    "cli-color": "^1.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "andrej bartko",
+  "license": "ISC"
+}
