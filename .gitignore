@@ -26,6 +26,11 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
+# ignore distribution folder
 dist
 
+# ignore build folder - Grunt
 build
+
+# ignore vendor folders - bower
+vendor
