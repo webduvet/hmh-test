@@ -50,8 +50,8 @@ function servePager(res, page, orderBy){
 	var arr = JSON.parse(content).response.results.result;
 	//sorts the content
 	arr.sort(function(a,b){
-		if (a.content.resource[orderBy] > b.content.resource[orderBy]) return 1;
-		if (a.content.resource[orderBy] < b.content.resource[orderBy]) return -1;
+		if (a.content.resource[orderBy].toLowerCase() > b.content.resource[orderBy].toLowerCase()) return 1;
+		if (a.content.resource[orderBy].toLowerCase() < b.content.resource[orderBy].toLowerCase()) return -1;
 		return 0;
 	});
 
